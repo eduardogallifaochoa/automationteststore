@@ -1,0 +1,25 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "nodejs automation task",
+  "homepage": "https://github.com/eduardogallifaochoa/automationteststore#readme",
+  "bugs": {
+    "url": "https://github.com/eduardogallifaochoa/automationteststore/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduardogallifaochoa/automationteststore.git"
+  },
+  "license": "ISC",
+  "author": "eduardo gallifa",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.6"
+  }
+}
