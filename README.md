@@ -11,8 +11,6 @@ As a shopper, I want to search for a product, open its details page, and add it 
 Flow #3 — Guest checkout
 As a guest shopper, I want to checkout with items in my cart, so that I can place an order without creating an account.
 
-There is an Excel file in the repo with more detailed information about the flows and acceptance criteria.
-
 ## How to run
 
 1. Clone the repo and open it in VS Code
@@ -33,3 +31,7 @@ npx playwright test
 npx playwright test --headed
 ```
 
+## Excel file:
+```
+https://docs.google.com/spreadsheets/d/1FOIMtKxLiqbTXBY3_NMxD2aUWlVXWLHkawCBjlOdEp8/edit?usp=sharing
+```
