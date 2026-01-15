@@ -1,3 +1,6 @@
+// pages/ProductPage.js
+// Page Object Model for the Product Page
+
 export class ProductPage {
   /**
    * @param {import('@playwright/test').Page} page

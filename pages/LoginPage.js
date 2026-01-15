@@ -1,3 +1,6 @@
+// pages/LoginPage.js
+// Page Object Model for the Login Page
+
 import { expect } from '@playwright/test';
 
 export class LoginPage {

@@ -1,3 +1,6 @@
+// pages/AccountPage.js
+// Page Object Model for the Account Page
+
 import { expect } from '@playwright/test';
 
 export class AccountPage {
@@ -13,8 +16,9 @@ export class AccountPage {
     // Scope the Logoff link to the visible customer navigation area.
     // Using .first() can pick a hidden duplicate (e.g., mobile menu / footer).
     this.logoffLink = page.getByRole('link', { name: 'Logoff', exact: true });
-    
+
   }
+
 
   // Asserts that login was successful and account page is visible
   async expectLoaded() {

@@ -1,3 +1,6 @@
+// pages/HomePage.js
+// Page Object Model for the Home Page
+
 import { expect } from '@playwright/test';
 import { config } from '../test-data/config.js';
 

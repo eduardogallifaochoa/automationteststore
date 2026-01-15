@@ -1,3 +1,5 @@
+// tests/02-add-to-cart.spec.js
+
 import { test } from '@playwright/test';
 
 import { HomePage } from '../pages/HomePage.js';

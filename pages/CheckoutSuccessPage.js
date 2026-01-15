@@ -1,3 +1,6 @@
+// pages/CheckoutSuccessPage.js
+// Page Object Model for the Checkout Success Page
+
 import { expect } from '@playwright/test';
 
 export class CheckoutSuccessPage {

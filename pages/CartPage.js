@@ -1,3 +1,6 @@
+// pages/CartPage.js
+// Page Object Model for the Cart Page
+
 import { expect } from '@playwright/test';
 
 export class CartPage {

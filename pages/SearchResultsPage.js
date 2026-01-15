@@ -1,3 +1,6 @@
+//pages/SearchResultsPage.js
+// Page Object Model for the Search Results Page
+
 export class SearchResultsPage {
   /**
    * @param {import('@playwright/test').Page} page
@@ -7,9 +10,11 @@ export class SearchResultsPage {
     this.productDetails = page.locator('#product_details');
   }
 
+
   async expectResultContains(text) {
     await this.productDetails.getByText(text).first().waitFor({ state: 'visible' });
   }
+
 
   async openProductByName(namePart) {
     // Click on the product link in results by partial name
