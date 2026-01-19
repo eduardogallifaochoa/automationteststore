@@ -1,39 +1,45 @@
-// tests/02-add-to-cart.spec.js
-
-import { test } from '@playwright/test';
-
+import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage.js';
 import { SearchResultsPage } from '../pages/SearchResultsPage.js';
 import { ProductPage } from '../pages/ProductPage.js';
 import { CartPage } from '../pages/CartPage.js';
-
 import { products } from '../test-data/products.js';
 
-test('add to cart - search + open product + add + validate cart', async ({ page }) => {
-  // Create page object instances (each one wraps a part of the UI)
-  const home = new HomePage(page);
-  const results = new SearchResultsPage(page);
-  const product = new ProductPage(page);
-  const cart = new CartPage(page);
+// Test suite for adding products to cart
+test.describe('Cart - Add to cart', () => {
+  test.beforeEach(async ({ page }) => {
+    const home = new HomePage(page);
+    await home.goto();
+  });
+  // Test case: Search for a product, open it, add to cart, and validate cart contents
+  test('search + open product + add + validate cart', async ({ page }) => {
+    const home = new HomePage(page);
+    const results = new SearchResultsPage(page);
+    const product = new ProductPage(page);
+    const cart = new CartPage(page);
+    const { fullName, namePart } = products.fruitTshirts;
 
-  // Test data (what we are buying)
-  const { fullName, namePart } = products.fruitTshirts;
+    // Use the local helper function to perform the add to cart flow
+    await test.step('Search product', async () => {
+      await home.search(fullName);
+    });
 
-  // Step 1: Open the home page
-  await home.goto();
+    // Open product from results
+    await test.step('Open product from results', async () => {
+      await results.expectResultContains(namePart);
+      await results.openProductByName(namePart);
+    });
 
-  // Step 2: Search for the product
-  await home.search(fullName);
+    // Add product to cart
+    await test.step('Add product to cart', async () => {
+      await product.addToCart();
+    });
 
-  // Step 3: Validate that results contain the product and open it
-  await results.expectResultContains(namePart);
-  await results.openProductByName(namePart);
-
-  // Step 4: Add to cart (this should redirect to the cart page)
-  await product.addToCart();
-
-  // Step 5: Cart assertions
-  await cart.expectLoaded();
-  await cart.expectProductVisible(namePart);
-  await cart.expectQtyIsOneForProductRow(namePart);
+    // Validate cart contents
+    await test.step('Validate cart contains product', async () => {
+      await cart.expectLoaded();
+      await cart.expectProductVisible(namePart);
+      await cart.expectQtyIsOneForProductRow(namePart);
+    });
+  });
 });

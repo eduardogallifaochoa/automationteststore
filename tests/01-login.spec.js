@@ -1,40 +1,43 @@
-// tests/01-login.spec.js
-
-// 1) Import Playwright test runner.
-// - `test` defines a test case.
-// - We are NOT importing `expect` here because assertions live inside the Page Objects (AccountPage.expectLoaded()).
-import { test } from '@playwright/test';
-
-// 2) Import Page Objects (POM).
-// Each class wraps selectors + actions for a specific page.
-// This keeps tests clean and readable (high-level flow only).
 import { HomePage } from '../pages/HomePage.js';
 import { LoginPage } from '../pages/LoginPage.js';
 import { AccountPage } from '../pages/AccountPage.js';
-
-// 3) Import test data.
-// Instead of hardcoding credentials in the test, we keep them in a central file.
 import { users } from '../test-data/users.js';
+import { test, expect } from '@playwright/test';
 
-// 4) Define the test.
-// Playwright injects a fresh `page` instance for the test run.
-test('login - valid user can access My Account (POM)', async ({ page }) => {
-  // 5) Create Page Object instances.
-  // We pass the same Playwright `page` into each POM so they can interact with the browser.
-  const home = new HomePage(page);
-  const login = new LoginPage(page);
-  const account = new AccountPage(page);
+// Test suite for authentication - login functionality
+test.describe('Auth - Login', () => {
+  test.beforeEach(async ({ page }) => {
+    // Common setup for this suite: always start from home
+    const home = new HomePage(page);
+    await home.goto();
+  });
 
-  // 6) Navigate to the website home page.
-  await home.goto();
+  //
+  test('valid user can access My Account', async ({ page }) => {
+    const home = new HomePage(page);
+    const login = new LoginPage(page);
+    const account = new AccountPage(page);
 
-  // 7) From the home page, open the Login/Register screen.
-  await home.openLogin();
+    // Test step 1: Open login/register page
+    await test.step('Open login/register page', async () => {
+      await home.openLogin();
+    });
 
-  // 8) Perform login using valid credentials from test-data.
-  await login.login(users.validUser.username, users.validUser.password);
+    //test step 2: Submit valid credentials
+    await test.step('Submit valid credentials', async () => {
+      await login.login(users.validUser.username, users.validUser.password);
+    });
 
-  // 9) Verify login success.
-  // This method usually checks URL + "My Account" heading + "Logoff" link.
-  await account.expectLoaded();
+    // Test step 3: Verify user landed on My Account  
+    await test.step('Verify user landed on My Account', async () => {
+      await account.expectLoaded();
+    });
+  });
+
+  // Optional cleanup after each test in this suite
+  test.afterEach(async ({ page }) => {
+    // Optional cleanup example (only if you really need it later)
+    // e.g., you could add logout here if your suite requires a clean session.
+    // await page.context().clearCookies(); // also possible, but not required now
+  });
 });
